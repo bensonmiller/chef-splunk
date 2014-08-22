@@ -28,6 +28,9 @@ default['splunk']['user'] = {
   'uid'      => 396
 }
 
+# Whether to use chef-vault (if false, expects normal encrypted_data_bag)
+default['splunk']['use_vault_for_secrets'] = true
+
 default['splunk']['ssl_options'] = {
   'enable_ssl' => false,
   'data_bag' => 'vault',
