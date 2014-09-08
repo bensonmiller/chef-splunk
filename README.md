@@ -83,6 +83,15 @@ Special attributes for managing the Splunk user:
 
 * `node['splunk']['server']['runasroot']`: if runasroot is true (which is the splunk upstream package default) then the splunk server runs as root.  If runasroot is false modify the init script to run as the `node['splunk']['user']`.  This does not apply to the splunk client as they may need root permissions to read logfiles.  NOTE1: you may also need to change `node['splunk']['web_port']` on a splunk server to run on a port >1024 if you don't run as root (splunk user cannot bind to privelaged ports).  NOTE2: If you want to switch from root to the splunk user or vice versa on an existing install, please stop the splunk service first before changing the runasroot boolean value.
 
+The following attribute controls whether to use Chef Vault for managing secrets
+or traditional Encrypted Data Bags.
+
+* `node['splunk']['use_vault_for_secrets']`: If `true`, Vault is used to manage
+  splunk secrets. If false, Encrypted Data Bags are used. Defaults to `true`,
+  must be set using a boolean literal `true` or `false`. This setting affects
+  secrets management for the `setup_auth` and `setup_ssl` recipes.
+
+
 The following attributes are related to setting up `splunkweb` with
 SSL in the `setup_ssl` recipe.
 
