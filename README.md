@@ -56,6 +56,19 @@ General attributes:
 * `node['splunk']['web_port']`: The port that the splunkweb service
   listens to. This is set to the default for HTTPS, 443, as it is
   configured by the `setup_ssl` recipe.
+* `node['splunk']['forward_to_server']`: The default behavior of the
+   splunk `client` recipe is to search for splunk servers and configure
+   the `outputs.conf` file accordingly. The `forward_to_server` attribute
+   overrides the default search behavior and allows splunk clients to
+   forward to an explicitly identified server(s). The value of this attribute
+   should be an array of one or more hashes, each representing a splunk server.
+   The keys for these hashes should be 'host' and 'receiver_port'. For example:
+
+       default['splunk']['forward_to_server'] = [
+            { 'host' => 'splunky1.local', 'receiver_port' => 9997 },
+            { 'host' => '10.1.0.10', 'receiver_port' => 9997 }
+       ]
+
 
 The two URL attributes below are selected by platform and architecture
 by default.

@@ -20,6 +20,18 @@ default['splunk']['is_server']      = false
 default['splunk']['receiver_port']  = '9997'
 default['splunk']['web_port']       = '443'
 
+# Assuming a universal forwarder, the forward_to_server attribute allows
+# an administrator to explicitly define the Splunk indexer. If defined,
+# the client recipe will not search for servers via Chef Search.
+#
+# To set, define an array of hashes, each representing a node. Keys for these
+# hashes should be 'host' and 'receiver_port'. For example:
+#
+# [{ 'host' => 'splunky1.local', 'receiver_port' => 9997 },
+#  { 'host' => 'splunky2.local', 'receiver_port' => 9997 }]
+#
+default['splunk']['forward_to_server'] = nil
+
 default['splunk']['user'] = {
   'username' => 'splunk',
   'comment'  => 'Splunk Server',
