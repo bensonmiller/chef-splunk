@@ -18,14 +18,7 @@
 # limitations under the License.
 #
 
-if node['splunk']['use_vault_for_secrets']
-  include_recipe 'chef-vault'
-  splunk_auth_info = chef_vault_item(:vault, "splunk_#{node.chef_environment}")['auth']
-else
-  include_recipe 'chef-sugar'
-  splunk_auth_info = encrypted_data_bag_item_for_environment('secrets','splunk_credentials')['auth']
-end
-
+splunk_auth_info = get_auth_from_vault_or_encrypted_databag
 user, pw = splunk_auth_info.split(':')
 
 execute 'change-admin-user-password-from-default' do
