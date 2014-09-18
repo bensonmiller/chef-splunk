@@ -10,12 +10,12 @@ describe 'chef-splunk::setup_auth' do
     allow(Chef::DataBagItem).to receive(:load).with(:vault, 'splunk__default').and_return(vault_credentials)
 
     # Stub out encrypted data bags (when not using vault)
-    splunk_credentials =  {
+    databag_credentials =  {
       'id' => 'splunk_credentials',
       'default' => { 'auth' => 'admin:databagpassword' }
     }
     Chef::Config[:encrypted_data_bag_secret] = File.join(File.absolute_path(File.dirname(__FILE__)), '../encrypted_data_bag_secret')
-    Chef::EncryptedDataBagItem.stub(:load).with('secrets', 'splunk_credentials', anything).and_return(splunk_credentials)
+    Chef::EncryptedDataBagItem.stub(:load).with('secrets', 'splunk_credentials', anything).and_return(databag_credentials)
   end
 
   context 'use_vault_for_secrets is true' do

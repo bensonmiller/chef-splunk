@@ -32,7 +32,7 @@ if node['splunk']['use_vault_for_secrets']
 else
   # otherwise, use traditional encrypted data_bags
   include_recipe 'chef-sugar'
-  certs = encrypted_data_bag_item_for_environment(ssl_options['data_bag'], ssl_options['data_bag_item'])['auth']
+  certs = encrypted_data_bag_item_for_environment(ssl_options['data_bag'], ssl_options['data_bag_item'])['data']
 end
 
 # ensure that the splunk service resource is available without cloning
